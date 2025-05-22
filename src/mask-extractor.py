@@ -2,30 +2,25 @@ from PIL import Image
 import os
 import time
 
-# Script extrects aplha channel and saves it to separate file as mask.
-
+# Extracts the alpha channel from PNG files and saves it as a separate mask image.
 
 def create_mask():
-   for f in os.listdir('.'):
-     if f.endswith('.png'):
-        i = Image.open(f).convert('RGBA')
-        alpha = i.getchannel("A")
-        fn, text = os.path.splitext(f)
-        alpha.save('masks/{}_mask.png'.format(fn))
-
-        print(f+" is done")
-       
-     elif  0==f.endswith('.png'):
-        continue
+    found = False
+    for f in os.listdir('.'):
+        if f.lower().endswith('.png'):
+            found = True
+            img = Image.open(f).convert('RGBA')
+            alpha = img.getchannel("A")
+            fn, _ = os.path.splitext(f)
+            alpha.save(f'masks/{fn}_mask.png')
+            print(f"{f} is done")
     
-     else:
-        print("no files found")
-        
-if  not os.path.exists("./masks"):
-    os.mkdir("./masks")
-    create_mask()
+    if not found:
+        print("No PNG files found.")
 
-else:
-    create_mask()
+# Create 'masks' directory if it doesn't exist
+os.makedirs("masks", exist_ok=True)
+
+create_mask()
 print("Done!")
 time.sleep(4)
