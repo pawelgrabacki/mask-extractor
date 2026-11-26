@@ -2,7 +2,7 @@
 
 A Python/Pillow tool that extracts the alpha (transparency) channel from PNG files and saves each one as a separate mask image. It saved a ton of time while texturing.
 
-![mask-extractor demo](pictures/mask_extractor.gif)
+![mask-extractor demo](docs/mask_extractor.gif)
 
 **Features**
 
